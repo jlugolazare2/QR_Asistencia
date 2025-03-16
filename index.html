@@ -24,7 +24,7 @@
                     showMessage('⚠️ No hay ID registrado en este dispositivo.');
                     return;
                 }
-                 showMessage('paso 1.');    
+                     
                  if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(async (position) => {
                         const lat = position.coords.latitude;
