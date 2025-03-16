@@ -13,12 +13,12 @@
             const id = params.get('userid');
             const punto = params.get('control');
 
-            if (action === 'register' && id) {
+            if (action === 'register' ) {
                 await saveToIndexedDB(id);
                 showMessage(`✅ ID <strong>${id}</strong> registrado exitosamente en este dispositivo.`);
             }
 
-            if (action === 'checkin' && punto) {
+            if (action === 'checkin' ) {
                 const storedId = await getFromIndexedDB();
                 if (!storedId) {
                     showMessage('⚠️ No hay ID registrado en este dispositivo.');
