@@ -25,14 +25,15 @@
                     return;
                 }
                  showMessage('paso 1.');    
-                //if (navigator.geolocation) {
+                // if (navigator.geolocation) {
                 //    navigator.geolocation.getCurrentPosition(async (position) => {
                 //        const lat = position.coords.latitude;
-                //        const lng = position.coords.longitude;
+                //        const lng = position.coords.longitude; 
                         const fechaObj = new Date();
                         const fecha = fechaObj.toLocaleDateString();
                         const hora = fechaObj.toLocaleTimeString();
-
+                        
+                        showMessage('paso 2.');
                         const payload = {
                             id: storedId,
                             punto: punto,
@@ -40,8 +41,7 @@
                             lat: lat,
                             lng: lng
                         };
-                        showMessage('paso 2.');
-                        
+                        showMessage('paso 3.');
                         await sendToBackend(payload);
                         showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
                //     }, (err) => {
