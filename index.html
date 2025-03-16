@@ -25,10 +25,10 @@
                     return;
                 }
                  showMessage('paso 1.');    
-                // if (navigator.geolocation) {
-                //    navigator.geolocation.getCurrentPosition(async (position) => {
-                //        const lat = position.coords.latitude;
-                //        const lng = position.coords.longitude; 
+                 if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude; 
                         const fechaObj = new Date();
                         const fecha = fechaObj.toLocaleDateString();
                         const hora = fechaObj.toLocaleTimeString();
@@ -36,19 +36,18 @@
                         const payload = {
                             id: storedId,
                             punto: punto,
-                            timestamp: fechaObj.toISOString()//,
-                            //lat: lat,
-                            //lng: lng
+                            timestamp: fechaObj.toISOString(),
+                            lat: lat,
+                            lng: lng
                         };
-                        showMessage('paso 3.');
-                        await sendToBackend(payload);
+                        //await sendToBackend(payload);
                         showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
-               //     }, (err) => {
-               //         showMessage('⚠️ Error al obtener la ubicación: ' + err.message);
-               //     });
-               // } else {
-               //     showMessage('⚠️ Geolocalización no soportada en este navegador.');
-               // }
+                    }, (err) => {
+                        showMessage('⚠️ Error al obtener la ubicación: ' + err.message);
+                    });
+                } else {
+                    showMessage('⚠️ Geolocalización no soportada en este navegador.');
+                }
             }
         });
 
