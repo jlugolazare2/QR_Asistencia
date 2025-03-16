@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Empleados + Geolocalización</title>
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbx-lUa0CuekfJAze9I0Audk0eX0mnrfrAjx0aWmvgeS3_yIgAAIPVmxByO28HBct7wgbQ/exec'; // tu Apps Script Web App URL
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const action = params.get('action');
+            const id = params.get('id');
+            const punto = params.get('punto');
+
+            if (action === 'register' && id) {
+                await saveToIndexedDB(id);
+                alert('ID registrado en este dispositivo: ' + id);
+            }
+
+            if (action === 'checkin' && punto) {
+                const storedId = await getFromIndexedDB();
+                if (!storedId) {
+                    alert('No hay ID registrado en este dispositivo');
+                    return;
+                }
+
+                // Obtener geolocalización
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+
+                        const payload = {
+                            id: storedId,
+                            punto: punto,
+                            action: 'checkin',
+                            timestamp: new Date().toISOString(),
+                            lat: lat,
+                            lng: lng
+                        };
+                        await sendToBackend(payload);
+                        alert(`Check-in realizado para: ${storedId} en ${lat}, ${lng}`);
+                    }, (err) => {
+                        alert('Error al obtener la ubicación: ' + err.message);
+                    });
+                } else {
+                    alert('Geolocalización no soportada en este navegador.');
+                }
+            }
+        });
+
+        // IndexedDB
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('empleadosDB', 1);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    db.createObjectStore('empleados', { keyPath: 'key' });
+                };
+                request.onsuccess = (e) => resolve(e.target.result);
+                request.onerror = (e) => reject(e);
+            });
+        }
+
+        async function saveToIndexedDB(id) {
+            const db = await openDB();
+            const tx = db.transaction('empleados', 'readwrite');
+            tx.objectStore('empleados').put({ key: 'empleadoID', value: id });
+            await tx.complete;
+        }
+
+        async function getFromIndexedDB() {
+            const db = await openDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction('empleados', 'readonly');
+                const store = tx.objectStore('empleados');
+                const req = store.get('empleadoID');
+                req.onsuccess = () => resolve(req.result ? req.result.value : null);
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        async function sendToBackend(data) {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await response.json();
+            console.log(result);
+        }
+    </script>
+</head>
+<body>
+    <h1>Registro de empleados con ubicación</h1>
+    <p>Escanea el QR para registrar o hacer check-in.</p>
+</body>
+</html>
