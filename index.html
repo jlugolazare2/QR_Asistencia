@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Registro de Empleados + Geolocalización</title>
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbx-lUa0CuekfJAze9I0Audk0eX0mnrfrAjx0aWmvgeS3_yIgAAIPVmxByO28HBct7wgbQ/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwwZJe2EljOl7ki_OJglliRKsdHsdmFJJX9b3FlHFOiK1MwFtld2lvKTp0_FQgHgut4/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -33,13 +33,12 @@
                         const fecha = fechaObj.toLocaleDateString();
                         const hora = fechaObj.toLocaleTimeString();
                         
-                        showMessage('paso 2.');
                         const payload = {
                             id: storedId,
                             punto: punto,
-                            timestamp: fechaObj.toISOString(),
-                            lat: lat,
-                            lng: lng
+                            timestamp: fechaObj.toISOString()//,
+                            //lat: lat,
+                            //lng: lng
                         };
                         showMessage('paso 3.');
                         await sendToBackend(payload);
