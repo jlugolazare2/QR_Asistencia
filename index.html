@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Registro de Empleados + Geolocalización</title>
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzsQnIbTNDl2QjihlDycdusqkmtxGmWOUlVmrOl1oBNs9ZouLPUAstJ_WtZA-2_CEO6QA/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbx7_86HnnZwGlo4qHB_-sggGYt-Ej2A-OqedW9w4w3hJuYF6rgRqF4YtvmJv9hzQECSdg/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -38,7 +38,7 @@
                             punto: punto,
                             timestamp: fechaObj.toISOString(),
                             lat: lat,
-                            lng: lng
+                            lng: lng,
                         };
                         await sendToBackend(payload);
                         showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
