@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Registro de Empleados + Geolocalización</title>
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzg4AKJQYVOscyQkvYKykuycNfatcb6_Uz2POEQLo6EIJA3nRPD_MSHO6ngon4XbaXeWw/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyuSkzGLtlM8A2pjarbMh6uo5vZcCevMlFG03oSYX6Y_nQbb0UGNFy65xjggUTWNIA5/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -89,17 +89,18 @@
 
         async function sendToBackend(data) {
             const response = await fetch(API_URL, {
-                redirect: "follow",
                 method: 'POST',
-                body: JSON.stringify(data),
-                headers: {'Content-Type': 'application/json',  // Establece el tipo de contenido como JSON
-                          'Host': "script.google.com" // No es necesario el 'Content-Length' ni 'body.length'
-                }//,
-                //mode: 'no-cors'  // Usar no-cors para omitir restricciones de CORS
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             });
+        
             const result = await response.json();
             console.log(result);
         }
+        
+ 
     </script>
     <style>
         body {
