@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Registro de Empleados + Geolocalización</title>
@@ -14,40 +15,47 @@
 
             if (action === 'register' && id) {
                 await saveToIndexedDB(id);
-                alert('ID registrado en este dispositivo: ' + id);
+                showMessage(`✅ ID <strong>${id}</strong> registrado exitosamente en este dispositivo.`);
             }
 
             if (action === 'checkin' && punto) {
                 const storedId = await getFromIndexedDB();
                 if (!storedId) {
-                    alert('No hay ID registrado en este dispositivo');
+                    showMessage('⚠️ No hay ID registrado en este dispositivo.');
                     return;
                 }
 
-                // Obtener geolocalización
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(async (position) => {
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
+                        const fechaObj = new Date();
+                        const fecha = fechaObj.toLocaleDateString();
+                        const hora = fechaObj.toLocaleTimeString();
 
                         const payload = {
                             id: storedId,
                             punto: punto,
                             action: 'checkin',
-                            timestamp: new Date().toISOString(),
+                            timestamp: fechaObj.toISOString(),
                             lat: lat,
                             lng: lng
                         };
                         await sendToBackend(payload);
-                        alert(`Check-in realizado para: ${storedId} en ${lat}, ${lng}`);
+                        showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
                     }, (err) => {
-                        alert('Error al obtener la ubicación: ' + err.message);
+                        showMessage('⚠️ Error al obtener la ubicación: ' + err.message);
                     });
                 } else {
-                    alert('Geolocalización no soportada en este navegador.');
+                    showMessage('⚠️ Geolocalización no soportada en este navegador.');
                 }
             }
         });
+
+        // Mostrar mensajes en la página
+        function showMessage(msg) {
+            document.getElementById('message').innerHTML = msg;
+        }
 
         // IndexedDB
         function openDB() {
@@ -90,9 +98,24 @@
             console.log(result);
         }
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        #message {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Registro de empleados con ubicación</h1>
+    <h1>Registro de empleados con geolocalización</h1>
     <p>Escanea el QR para registrar o hacer check-in.</p>
+    <div id="message"></div>
 </body>
+
 </html>
+
