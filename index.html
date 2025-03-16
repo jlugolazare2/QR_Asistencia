@@ -94,7 +94,7 @@
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json',
                 'Content-Length': body.length,
-                'Host': "script.google.com", },
+                'Host': "script.google.com" },
                 mode: 'no-cors'  // Usar no-cors para omitir restricciones de CORS
             });
             const result = await response.json();
