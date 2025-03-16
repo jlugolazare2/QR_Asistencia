@@ -97,9 +97,16 @@
                 mode: 'no-cors',
                 body: JSON.stringify(data)
             });
-        
+
+            // Verifica si la respuesta no está vacía antes de hacer .json()
+            if (response.ok && response.status !== 204) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                console.error('La respuesta del servidor está vacía o incorrecta');
+            }
             //const result = await response.json();
-            console.log(result);
+            //console.log(result);
         }
         
  
