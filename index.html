@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
     <meta charset="UTF-8">
     <title>Registro de Empleados + Geolocalización</title>
     <script>
@@ -10,7 +10,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const action = params.get('action');
-            const id = params.get('id');
+            const id = params.get('userid');
             const punto = params.get('punto');
 
             if (action === 'register' && id) {
