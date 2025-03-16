@@ -11,7 +11,7 @@
             const params = new URLSearchParams(window.location.search);
             const action = params.get('action');
             const id = params.get('userid');
-            const punto = params.get('punto');
+            const punto = params.get('control');
 
             if (action === 'register' && id) {
                 await saveToIndexedDB(id);
