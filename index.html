@@ -24,7 +24,7 @@
                     showMessage('⚠️ No hay ID registrado en este dispositivo.');
                     return;
                 }
-
+                 showMessage('paso 1.');    
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(async (position) => {
                         const lat = position.coords.latitude;
@@ -36,11 +36,11 @@
                         const payload = {
                             id: storedId,
                             punto: punto,
-                            action: 'checkin',
                             timestamp: fechaObj.toISOString(),
                             lat: lat,
                             lng: lng
                         };
+                         showMessage('paso 2.');
                         await sendToBackend(payload);
                         showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
                     }, (err) => {
