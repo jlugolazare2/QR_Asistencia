@@ -103,8 +103,17 @@
             const db = await openDB();
             const tx = db.transaction('empleados', 'readwrite');
             tx.objectStore('empleados').put({ key: 'empleadoID', value: id });
-            await tx.complete;
+            return new Promise((resolve, reject) => {
+                tx.oncomplete = () => resolve();
+                tx.onerror = (e) => reject(e);
+            });
         }
+        //async function saveToIndexedDB(id) {
+        //    const db = await openDB();
+        //    const tx = db.transaction('empleados', 'readwrite');
+        //    tx.objectStore('empleados').put({ key: 'empleadoID', value: id });
+        //    await tx.complete;
+        //}
 
         async function getFromIndexedDB() {
             const db = await openDB();
