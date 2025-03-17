@@ -18,10 +18,6 @@
             const id = params.get('userid');
             const punto = params.get('control');
         
-            // Eventos de botones para cerrar la ventana
-            document.getElementById('btn-close-success').addEventListener('click', () => window.close());
-            document.getElementById('btn-close-error').addEventListener('click', () => window.close());
-        
             if (action === 'register') {
                 await saveToIndexedDB(id);
                 $('#loader').hide();
@@ -42,13 +38,13 @@
                     return;
                 }
         
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(async (position) => {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-                        const fechaObj = new Date();
-                        const fecha = fechaObj.toLocaleDateString();
-                        const hora = fechaObj.toLocaleTimeString();
+                //if (navigator.geolocation) {
+                //    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat =""; //position.coords.latitude;
+                        const lng =""; position.coords.longitude;
+                //        const fechaObj = new Date();
+                //        const fecha = fechaObj.toLocaleDateString();
+                //        const hora = fechaObj.toLocaleTimeString();
         
                         const payload = {
                             id: storedId,
@@ -68,13 +64,13 @@
                         $('#success').show();
                         $('#btn-close-success').show();
                         
-                    }, (err) => {
-                        $('#loader').hide();
-                        $('#error-spinner').hide();
-                        $('#error-text').html(`⚠️ Error al obtener la ubicación: ${err.message}`);
-                        $('#error').show();
-                        $('#btn-close-error').show();
-                    });
+                  //  }, (err) => {
+                  //      $('#loader').hide();
+                  //      $('#error-spinner').hide();
+                  //      $('#error-text').html(`⚠️ Error al obtener la ubicación: ${err.message}`);
+                  //      $('#error').show();
+                  //      $('#btn-close-error').show();
+                  //  });
                 } else {
                     $('#loader').hide();
                     $('#error-spinner').hide();
@@ -172,11 +168,6 @@
                 </div>
                 <div id="error-text" class="lh-sm"></div>
             </div>
-        </div>
-
-        <!-- Botón único de Aceptar -->
-        <div class="w-100 d-flex justify-content-center mt-3" id="btn-container" style="display:none;">
-            <button id="btn-aceptar" class="btn btn-primary">Aceptar</button>
         </div>
 
     </div>
