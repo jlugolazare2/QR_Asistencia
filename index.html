@@ -124,18 +124,20 @@
 
 <body class="bg-light d-flex flex-column justify-content-center align-items-center vh-100">
 
+    <!-- Mensajes en la parte superior -->
+    <div class="position-absolute top-0 start-0 w-100 p-3">
+        <div id="success" class="alert alert-success text-center" role="alert" style="display: none;">
+        </div>
+        <div id="error" class="alert alert-danger text-center" role="alert" style="display: none;">
+        </div>
+    </div>
+
+    <!-- Loader centrado -->
     <div id="loader" class="spinner-border text-primary mb-4" role="status" style="width: 4rem; height: 4rem; display: none;">
         <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div id="success" class="alert alert-success text-center w-75" role="alert" style="display: none;">
-    </div>
-
-    <div id="error" class="alert alert-danger text-center w-75" role="alert" style="display: none;">
-    </div>
-
     <style>
-        /* Ajuste responsivo para mensajes */
         #success, #error {
             font-size: 1.5em;
         }
