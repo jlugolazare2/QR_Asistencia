@@ -125,54 +125,59 @@
     </script>
 </head>
 
-<body class="bg-light d-flex flex-column justify-content-start align-items-start vh-100">
+<body class="bg-light vh-100">
 
-    <!-- Mensajes en la parte superior -->
-    <div class="position-absolute top-0 start-0 w-100 p-3">
+    <!-- Mensajes en la parte superior sin márgenes -->
+    <div class="position-absolute top-0 start-0 w-100" style="margin:0; padding: 0;">
         <!-- Success -->
-        <div id="success" class="alert alert-success d-flex align-items-start" role="alert" style="display: none;">
+        <div id="success" class="alert alert-success d-flex align-items-start m-0 p-2" role="alert" style="display: none;">
             <div class="me-2">
                 <div class="spinner-border spinner-border-sm text-white" role="status" id="success-spinner">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div id="success-text"></div>
+            <div id="success-text" class="lh-sm"></div>
         </div>
         <!-- Error -->
-        <div id="error" class="alert alert-danger d-flex align-items-start" role="alert" style="display: none;">
+        <div id="error" class="alert alert-danger d-flex align-items-start m-0 p-2" role="alert" style="display: none;">
             <div class="me-2">
                 <div class="spinner-border spinner-border-sm text-white" role="status" id="error-spinner">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div id="error-text"></div>
+            <div id="error-text" class="lh-sm"></div>
         </div>
     </div>
 
     <!-- Loader central grande -->
-    <div id="loader" class="spinner-border text-primary mb-4 mt-5" role="status" style="width: 4rem; height: 4rem; display: none;">
-        <span class="visually-hidden">Loading...</span>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div id="loader" class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem; display: none;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
 
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
         #success, #error {
-            font-size: 1.2em;
+            font-size: 1em;
         }
         @media (min-width: 576px) {
             #success, #error {
-                font-size: 1.5em;
+                font-size: 1.3em;
             }
         }
         @media (min-width: 768px) {
             #success, #error {
-                font-size: 2em;
+                font-size: 1.6em;
             }
         }
     </style>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
