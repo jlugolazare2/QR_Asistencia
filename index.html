@@ -28,11 +28,18 @@
                 $('#loader').hide();
                 $('#success-spinner').hide();
                 $('#error-spinner').hide();
-        
-                // Mostramos mensaje de éxito
-                $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente.`);
-                $('#success').show();
-                
+
+                if(id){
+                    // Mostramos mensaje de éxito
+                    $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente.`);
+                    $('#success').show();
+                }
+                else
+                {
+                    // Mostramos mensaje de eliminacion de registro
+                    $('#success-text').html(`✅ </strong> registrado eliminado exitosamente.`);
+                    $('#success').show();
+                }
             }
         
             if (action === 'checkin') {
