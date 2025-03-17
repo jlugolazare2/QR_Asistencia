@@ -130,23 +130,31 @@
     <!-- Mensajes en la parte superior sin márgenes -->
     <div class="position-absolute top-0 start-0 w-100" style="margin:0; padding: 0;">
         <!-- Success -->
-        <div id="success" class="alert alert-success d-flex align-items-start m-0 p-2" role="alert" style="display: none;">
-            <div class="me-2">
-                <div class="spinner-border spinner-border-sm text-white" role="status" id="success-spinner">
-                    <span class="visually-hidden">Loading...</span>
+        <div id="success" class="alert alert-success d-flex flex-column align-items-start m-0 p-2" role="alert" style="display: none;">
+            <div class="d-flex align-items-center mb-2">
+                <div class="me-2">
+                    <div class="spinner-border spinner-border-sm text-white" role="status" id="success-spinner">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
+                <div id="success-text" class="lh-sm"></div>
             </div>
-            <div id="success-text" class="lh-sm"></div>
+            <button id="btn-close-success" class="btn btn-outline-light btn-sm mt-2" style="display:none;">Aceptar</button>
         </div>
+        
         <!-- Error -->
-        <div id="error" class="alert alert-danger d-flex align-items-start m-0 p-2" role="alert" style="display: none;">
-            <div class="me-2">
-                <div class="spinner-border spinner-border-sm text-white" role="status" id="error-spinner">
-                    <span class="visually-hidden">Loading...</span>
+        <div id="error" class="alert alert-danger d-flex flex-column align-items-start m-0 p-2" role="alert" style="display: none;">
+            <div class="d-flex align-items-center mb-2">
+                <div class="me-2">
+                    <div class="spinner-border spinner-border-sm text-white" role="status" id="error-spinner">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
+                <div id="error-text" class="lh-sm"></div>
             </div>
-            <div id="error-text" class="lh-sm"></div>
+            <button id="btn-close-error" class="btn btn-outline-light btn-sm mt-2" style="display:none;">Aceptar</button>
         </div>
+
     </div>
 
     <!-- Loader central grande -->
