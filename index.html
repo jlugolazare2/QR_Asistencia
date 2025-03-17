@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Empleados + Geolocalización</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous">
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbzB7Q2LV8hvIQVZledP5MwFJSKIDFHq6WGuiQUxFYGaj0xFIii-9I1OmrVBjWf3llGkFw/exec'; // tu Apps Script Web App URL
 
@@ -87,8 +90,7 @@
             });
         }
 
-        
-       async function sendToBackend(data) {
+        async function sendToBackend(data) {
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -110,27 +112,32 @@
                 console.error('Error al enviar la petición:', error);
             }
         }
-        
- 
     </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            text-align: center;
-        }
-        #message {
-            margin-top: 30px;
-            font-size: 18px;
-        }
-    </style>
 </head>
 
-<body>
-    <h1>Registro de empleados con geolocalización</h1>
-    <p>Escanea el QR para registrar o hacer check-in.</p>
-    <div id="message"></div>
+<body class="bg-light">
+    <div class="container">
+        <h1 class="text-center mt-5 mb-4">Registro de empleados con geolocalización</h1>
+        <p class="text-center mb-4">Escanea el QR para registrar o hacer check-in.</p>
+
+        <div id="message" class="alert alert-info" role="alert"></div>
+
+        <!-- Agregar un botón para interactuar o instrucciones -->
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-primary btn-lg">Escanear QR</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyQ2z9PE7gmhFf5OHVs9r+Xoh5f5YdlwZf+Ug0k2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
 </body>
 
 </html>
+
+
+
+
+
 
