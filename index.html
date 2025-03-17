@@ -29,7 +29,7 @@
                 $('#success-spinner').hide();
                 $('#error-spinner').hide();
 
-                if(id){
+                if(id !== null && id !== undefined && id !== ''){
                     // Mostramos mensaje de éxito
                     $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente.`);
                     $('#success').show();
