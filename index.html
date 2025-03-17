@@ -49,9 +49,10 @@
                         };
                         await sendToBackend(payload);
                         //showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
-                        $('#success-text').html(`
-                            <i class="bi bi-alarm me-2"></i>${fecha} - ${hora}<br>
-                            <b>${punto}</b>: ${storedId}
+                        ('#success-text').html(`
+                            <i class="bi bi-alarm me-2"></i> ${punto}<br>
+                            ${fecha} - ${hora}<br>
+                            ${storedId}
                         `);
                         $('#loader').hide();
                         $('#success').show();
