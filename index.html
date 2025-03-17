@@ -21,16 +21,20 @@
             $('#loader').show(); // Activamos el loader mientras inicia todo
         
             if (action === 'register') {
-                await saveToIndexedDB(id);
-        
-                // Ocultamos todos los spinners
-                $('#loader').hide();
-                $('#success-spinner').hide();
-                $('#error-spinner').hide();
-        
-                // Mostramos mensaje de éxito
-                $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente en este dispositivo.`);
-                $('#success').show();
+                if(id){
+                    await saveToIndexedDB(id);
+            
+                    // Ocultamos todos los spinners
+                    $('#loader').hide();
+                    $('#success-spinner').hide();
+                    $('#error-spinner').hide();
+            
+                    // Mostramos mensaje de éxito
+                    $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente.`);
+                    $('#success').show();
+                }
+                else
+                    deleteUser(id);
             }
         
             if (action === 'checkin') {
@@ -190,6 +194,19 @@
                 tx.onerror = (e) => reject(e);
             });
         }
+
+        function deleteUser(id) {
+            return openDB().then(db => {
+                return new Promise((resolve, reject) => {
+                    let transaction = db.transaction("empleados", "readwrite");
+                    let store = transaction.objectStore("empleados");
+                    store.delete(id);
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject("Error deleting user: " + event.target.error);
+                });
+            });
+        }
+        
         //async function saveToIndexedDB(id) {
         //    const db = await openDB();
         //    const tx = db.transaction('empleados', 'readwrite');
