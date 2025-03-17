@@ -126,13 +126,23 @@
 
     <!-- Mensajes en la parte superior -->
     <div class="position-absolute top-0 start-0 w-100 p-3">
-        <div id="success" class="alert alert-success text-center" role="alert" style="display: none;">
+        <!-- Success -->
+        <div id="success" class="alert alert-success text-center d-flex align-items-center justify-content-center gap-3" role="alert" style="display: none;">
+            <div class="spinner-border spinner-border-sm text-white" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span id="success-text"></span>
         </div>
-        <div id="error" class="alert alert-danger text-center" role="alert" style="display: none;">
+        <!-- Error -->
+        <div id="error" class="alert alert-danger text-center d-flex align-items-center justify-content-center gap-3" role="alert" style="display: none;">
+            <div class="spinner-border spinner-border-sm text-white" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span id="error-text"></span>
         </div>
     </div>
 
-    <!-- Loader centrado -->
+    <!-- Loader principal -->
     <div id="loader" class="spinner-border text-primary mb-4" role="status" style="width: 4rem; height: 4rem; display: none;">
         <span class="visually-hidden">Loading...</span>
     </div>
