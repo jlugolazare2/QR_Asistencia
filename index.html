@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Empleados + Geolocalización</title>
-    <!-- Bootstrap CDN -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>Control de Acceso QR</title>
+    
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbzB7Q2LV8hvIQVZledP5MwFJSKIDFHq6WGuiQUxFYGaj0xFIii-9I1OmrVBjWf3llGkFw/exec'; // tu Apps Script Web App URL
 
@@ -24,7 +26,9 @@
             if (action === 'checkin' ) {
                 const storedId = await getFromIndexedDB();
                 if (!storedId) {
-                    showMessage('⚠️ No hay ID registrado en este dispositivo.');
+                    $('#error').html(`<i class="bi bi-exclamation-circle-fill"></i> Debes registrarte para fichar.`);
+                    $('#error').show();
+                    //showMessage('⚠️ No hay ID registrado en este dispositivo.');
                     return;
                 }
                      
@@ -44,7 +48,10 @@
                             lng: lng,
                         };
                         await sendToBackend(payload);
-                        showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
+                        //showMessage(`✅ Check-in realizado para <strong>${storedId}</strong> en <strong>${punto}</strong> a las <strong>${fecha}</strong> - <strong>${hora}</strong>.`);
+                        $('#success').html(`<i class="bi bi-alarm"></i> ${fecha} ${hora}<br/><b>${punto}</b>: ${storedId}`);
+                        $('#loader').hide();
+                        $('#success').show();
                     }, (err) => {
                         showMessage('⚠️ Error al obtener la ubicación: ' + err.message);
                     });
@@ -116,22 +123,32 @@
 </head>
 
 <body class="bg-light">
-    <div class="container">
-        <h1 class="text-center mt-5 mb-4">Registro de empleados con geolocalización</h1>
-        <p class="text-center mb-4">Escanea el QR para registrar o hacer check-in.</p>
+    <div id="loader" class="spinner-grow" role="status" style="display: none">
+    </div>
+    <div id="success" class="alert alert-success" role="alert" style="display: none; font-size: 3em;">
+    </div>
+    <div id="error" class="alert alert-danger" role="alert" style="display: none; font-size: 3em;">
+    </div>
+    //<div class="container">
+    //    <h1 class="text-center mt-5 mb-4">Registro de empleados con geolocalización</h1>
+    //    <p class="text-center mb-4">Escanea el QR para registrar o hacer check-in.</p>
 
-        <div id="message" class="alert alert-info" role="alert"></div>
+   //     <div id="message" class="alert alert-info" role="alert"></div>
 
         <!-- Agregar un botón para interactuar o instrucciones -->
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-primary btn-lg">Escanear QR</a>
-        </div>
-    </div>
+   //     <div class="text-center mt-4">
+   //         <a href="#" class="btn btn-primary btn-lg">Escanear QR</a>
+   //     </div>
+   // </div>
 
-    <!-- Bootstrap JS y dependencias -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyQ2z9PE7gmhFf5OHVs9r+Xoh5f5YdlwZf+Ug0k2" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
+    //<!-- Bootstrap JS y dependencias -->
+    //<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyQ2z9PE7gmhFf5OHVs9r+Xoh5f5YdlwZf+Ug0k2" crossorigin="anonymous"></script>
+    ((<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
+    //<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0pXzA0W1Q0NzKdyXkD30l0FbZ+hsBX1rdX0buFf0JX0zMG3d" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
