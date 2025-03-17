@@ -67,6 +67,7 @@
                         `);
                         $('#success').show();
                         $('#btn-close-success').show();
+                        
                     }, (err) => {
                         $('#loader').hide();
                         $('#error-spinner').hide();
@@ -159,7 +160,6 @@
                 </div>
                 <div id="success-text" class="lh-sm"></div>
             </div>
-            <button id="btn-close-success" class="btn btn-outline-light btn-sm" style="display:none;">Aceptar</button>
         </div>
         
         <!-- Error -->
@@ -172,7 +172,11 @@
                 </div>
                 <div id="error-text" class="lh-sm"></div>
             </div>
-            <button id="btn-close-error" class="btn btn-outline-light btn-sm" style="display:none;">Aceptar</button>
+        </div>
+
+        <!-- Botón único de Aceptar -->
+        <div class="w-100 d-flex justify-content-center mt-3" id="btn-container" style="display:none;">
+            <button id="btn-aceptar" class="btn btn-primary">Aceptar</button>
         </div>
 
     </div>
