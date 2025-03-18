@@ -234,8 +234,8 @@
           //  .catch(err => console.error(err));
 
           try {
-                const res = await fetch(API_URL + "?" + params.toString()); // Esperamos la respuesta de fetch
-                const responseData = await res.json(); // Convertimos la respuesta a JSON
+                const res = fetch(API_URL + "?" + params.toString()); // Esperamos la respuesta de fetch
+                const responseData =  res.json(); // Convertimos la respuesta a JSON
         
                 return responseData; // Retornamos la respuesta para que pueda ser utilizada
             } catch (err) {
