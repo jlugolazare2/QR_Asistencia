@@ -70,8 +70,7 @@
                             lng: lng,
                         };
                         const respuesta =await sendToBackend(payload);
-                        console.log= respuesta.status;
-                        console.log= respuesta.message;
+                        
                         
                         // Ocultamos loaders/spinners
                         $('#loader').hide();
@@ -229,10 +228,21 @@
             lng: data.lng // corregido aquí
           });
         
-          fetch(API_URL + "?" + params.toString())
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.error(err));
+          //fetch(API_URL + "?" + params.toString())
+          //  .then(res => res.json())
+          //  .then(data => console.log(data))
+          //  .catch(err => console.error(err));
+
+          try {
+                const res = await fetch(API_URL + "?" + params.toString()); // Esperamos la respuesta de fetch
+                const responseData = await res.json(); // Convertimos la respuesta a JSON
+        
+                return responseData; // Retornamos la respuesta para que pueda ser utilizada
+            } catch (err) {
+                console.error('Error al enviar la solicitud:', err);
+                return { status: 'error', message: 'Hubo un error al enviar la solicitud' }; // En caso de error, retornamos un mensaje
+            }
+           
         }
 
         
