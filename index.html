@@ -78,7 +78,7 @@
                         $('#success-spinner').hide();
                         $('#error-spinner').hide();
             
-                        if (respuesta.status==='error') {
+                        if (respuesta){ //.status==='error') {
                             // Mostramos mensaje de "ya existe"
                             $('#error-text').html(`⚠️ El registro <b>${punto}</b> ya existe.`);
                             $('#error').show();
@@ -176,9 +176,10 @@
         
             try {
                 const response = await fetch(API_URL + "?" + params.toString());
-                const result = await response.json();
+                //const result = await response.json();
         
-                return result; // devolvemos la respuesta del backend
+                //return result; // devolvemos la respuesta del backend
+                return response;
             } catch (err) {
                 console.error(err);
                 return { success: false, error: "Error de conexión" };
