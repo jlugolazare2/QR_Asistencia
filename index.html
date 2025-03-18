@@ -70,7 +70,8 @@
                             lng: lng,
                         };
                         const respuesta =await sendToBackend(payload);
-                        console.log= respuesta;
+                        console.log= respuesta.status;
+                        console.log= respuesta.message;
                         
                         // Ocultamos loaders/spinners
                         $('#loader').hide();
