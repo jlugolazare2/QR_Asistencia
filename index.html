@@ -226,21 +226,45 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    mode: 'no-cors',
+                    mode: 'cors', // <-- si el backend lo permite
                     body: JSON.stringify(data)
                 });
         
-                // Con no-cors, generalmente solo puedes verificar si la petición fue aceptada
                 if (response.ok) {
-                    console.log('Petición enviada exitosamente al servidor (modo no-cors).');
-                    // No intentes acceder al cuerpo de la respuesta aquí, ya que no estará disponible
+                    const result = await response.json();
+                    console.log('Respuesta del backend:', result);
                 } else {
-                    console.error('Error al enviar la petición al servidor (modo no-cors):', response.status, response.statusText);
+                    console.error('Error al enviar la petición:', response.status, response.statusText);
                 }
             } catch (error) {
-                console.error('Error al enviar la petición:', error);
+                console.error('Error de red o de fetch:', error);
             }
-        }
+}
+
+
+        
+        //async function sendToBackend(data) {
+        //    try {
+        //        const response = await fetch(API_URL, {
+        //            method: 'POST',
+        //            headers: {
+        //                'Content-Type': 'application/json'
+        //            },
+        //            mode: 'no-cors',
+        //            body: JSON.stringify(data)
+        //        });
+        //
+        //        // Con no-cors, generalmente solo puedes verificar si la petición fue aceptada
+        //        if (response.ok) {
+        //            console.log('Petición enviada exitosamente al servidor (modo no-cors).');
+        //            // No intentes acceder al cuerpo de la respuesta aquí, ya que no estará disponible
+        //        } else {
+        //            console.error('Error al enviar la petición al servidor (modo no-cors):', response.status, response.statusText);
+        //        }
+        //    } catch (error) {
+        //        console.error('Error al enviar la petición:', error);
+        //    }
+        //}
     </script>
 </head>
 
