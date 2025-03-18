@@ -226,24 +226,58 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    mode: 'cors', // <-- si el backend lo permite
+                    mode: 'cors', // Ya que doOptions maneja el CORS
                     body: JSON.stringify(data)
                 });
-
-                .then(response => response.json())
-                .then(data => console.log('Respuesta del servidor:', data))
-                .catch(err => console.error('Error al enviar la petición:', err));
-                
-                //if (response.ok) {
-                //    const result = await response.json();
-                //    console.log('Respuesta del backend:', result);
-                //} else {
-                //    console.error('Error al enviar la petición:', response.status, response.statusText);
-                //}
+        
+                // Verificamos si la respuesta es OK
+                if (!response.ok) {
+                    console.error('Error en la respuesta del servidor:', response.status, response.statusText);
+                    return;
+                }
+        
+                // Convertimos la respuesta a JSON
+                const json = await response.json();
+                console.log('Respuesta del servidor:', json);
+        
+                // Aquí puedes hacer algo con la respuesta
+                if (json.status === 'success') {
+                    alert('Registro exitoso!');
+                } else {
+                    alert('Error: ' + json.message);
+                }
+        
             } catch (error) {
-                console.error('Error de red o de fetch:', error);
+                console.error('Error de red o servidor:', error);
             }
-}
+        }
+
+        
+        //async function sendToBackend(data) {
+        //    try {
+        //        const response = await fetch(API_URL, {
+        //            method: 'POST',
+        //            headers: {
+        //                'Content-Type': 'application/json'
+        //            },
+        //            mode: 'cors', // <-- si el backend lo permite
+        //            body: JSON.stringify(data)
+        //        });
+        //
+        //        .then(response => response.json())
+        //        .then(data => console.log('Respuesta del servidor:', data))
+        //        .catch(err => console.error('Error al enviar la petición:', err));
+        //        
+        //        //if (response.ok) {
+        //        //    const result = await response.json();
+        //        //    console.log('Respuesta del backend:', result);
+        //        //} else {
+        //        //    console.error('Error al enviar la petición:', response.status, response.statusText);
+        //        //}
+        //    } catch (error) {
+        //        console.error('Error de red o de fetch:', error);
+        //    }
+//}
 
 
         
