@@ -10,7 +10,7 @@
     <title>Control de Acceso QR</title>
     
     <script>
-        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbws3m_RVlbWVf_KrT5PYY7SHJYqV4ueQVtMaOQa0SWQEjLFwE4JmV031XO89bMyS4ozEQ/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbyk1KKwaTsrgi2vV2-S7qAmCBNUli14lNuQQoPFiIFhiZL2b26Epghs7SXNo_rnUOWZ4g/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -220,17 +220,18 @@
         }
 
        function sendToBackend(data) {
-            fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'cors',
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => console.log('Respuesta del servidor:', data))
-            .catch(err => console.error('Error al enviar la petición:', err));
+          const params = new URLSearchParams({
+            id: data.id,
+            punto: data.punto,
+            action: data.action,
+            lat: data.lat,
+            lng: data.lng // corregido aquí
+          });
+        
+          fetch(API_URL + "?" + params.toString())
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
         }
 
         
