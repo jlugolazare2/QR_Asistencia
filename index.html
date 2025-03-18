@@ -10,7 +10,7 @@
     <title>Control de Acceso QR</title>
     
     <script>
-        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbyfwA2df-MDDtdUHDYRP0kd89eKUpWj58p7SxIrxkYcBBDxawMCvLYkzzh2aU2b1vcl0w/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbx6Z2__VUAD6Xt_2HMBoqJrAP3Nt0PeUVH5T47tOolMvip3fM8BdmAYI1QFEw4fYCUJVg/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -226,7 +226,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    //mode: 'no-cors',
+                    mode: 'no-cors',
                     body: JSON.stringify(data)
                 });
         
