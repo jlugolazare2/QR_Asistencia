@@ -10,7 +10,7 @@
     <title>Control de Acceso QR</title>
     
     <script>
-        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbxYMJiEtozOWNzRja4J7xkuHw15TNw36GL0H5-J3kqmpFNK66HlKoqGHLEvuJ8mSQ5wiA/exec'; // tu Apps Script Web App URL
+        const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbxOePb_254U7SOSGIipMOF_0l1xKVBYOfxPQkg_sPuuUVOXRJNwn95sNpdanVuk7yE5gQ/exec'; // tu Apps Script Web App URL
 
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -229,13 +229,17 @@
                     mode: 'cors', // <-- si el backend lo permite
                     body: JSON.stringify(data)
                 });
-        
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log('Respuesta del backend:', result);
-                } else {
-                    console.error('Error al enviar la petición:', response.status, response.statusText);
-                }
+
+                .then(response => response.json())
+                .then(data => console.log('Respuesta del servidor:', data))
+                .catch(err => console.error('Error al enviar la petición:', err));
+                
+                //if (response.ok) {
+                //    const result = await response.json();
+                //    console.log('Respuesta del backend:', result);
+                //} else {
+                //    console.error('Error al enviar la petición:', response.status, response.statusText);
+                //}
             } catch (error) {
                 console.error('Error de red o de fetch:', error);
             }
