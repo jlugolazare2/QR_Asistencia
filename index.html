@@ -78,7 +78,7 @@
                         $('#success-spinner').hide();
                         $('#error-spinner').hide();
             
-                        if (respuesta.status==='error') {
+                        if (respuesta ===true { //  .status==='error') {
                             // Mostramos mensaje de "ya existe"
                             $('#error-text').html(`⚠️ El registro <b>${punto}</b> ya existe.`);
                             $('#error').show();
@@ -165,42 +165,43 @@
             });
         }
 
-        async function sendToBackend(data) {
-            const params = new URLSearchParams({
-                id: data.id,
-                punto: data.punto,
-                action: data.action,
-                lat: data.lat,
-                lng: data.lng
-            });
+        //async function sendToBackend(data) {
+        //    const params = new URLSearchParams({
+        //        id: data.id,
+        //        punto: data.punto,
+        //        action: data.action,
+        //        lat: data.lat,
+        //        lng: data.lng
+        //    });
+        //
+        //    try {
+        //        const response = await fetch(API_URL + "?" + params.toString());
+        //        const result = await response.json();
+        //
+        //        return result; // devolvemos la respuesta del backend
+        //       
+        //    } catch (err) {
+        //        console.error(err);
+        //        return { success: false, error: "Error de conexión" };
+        //    }
+        //}
         
-            try {
-                const response = await fetch(API_URL + "?" + params.toString());
-                const result = await response.json();
+       function sendToBackend(data) {
+          const params = new URLSearchParams({
+            id: data.id,
+            punto: data.punto,
+            action: data.action,
+            lat: data.lat,
+            lng: data.lng // corregido aquí
+          });
         
-                return result; // devolvemos la respuesta del backend
-               
-            } catch (err) {
-                console.error(err);
-                return { success: false, error: "Error de conexión" };
-            }
+           fetch(API_URL + "?" + params.toString())
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+
+           return false;
         }
-        
-       //function sendToBackend(data) {
-       //   const params = new URLSearchParams({
-       //     id: data.id,
-       //     punto: data.punto,
-       //     action: data.action,
-       //     lat: data.lat,
-       //     lng: data.lng // corregido aquí
-       //   });
-       // 
-       //    fetch(API_URL + "?" + params.toString())
-       //     .then(res => res.json())
-       //     .then(data => console.log(data))
-       //     .catch(err => console.error(err));
-       //     
-       // }
 
         
        
