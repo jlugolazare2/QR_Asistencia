@@ -227,20 +227,16 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    mode: 'cors', // <-- si el backend lo permite
+                    mode: 'cors', // si el backend lo permite
                     body: JSON.stringify(data)
                 });
         
-                .then(response => response.json())
-                .then(data => console.log('Respuesta del servidor:', data))
-                .catch(err => console.error('Error al enviar la petición:', err));
-                
-                //if (response.ok) {
-                //    const result = await response.json();
-                //    console.log('Respuesta del backend:', result);
-                //} else {
-                //    console.error('Error al enviar la petición:', response.status, response.statusText);
-                //}
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Respuesta del servidor:', result);
+                } else {
+                    console.error('Error al enviar la petición:', response.status, response.statusText);
+                }
             } catch (error) {
                 console.error('Error de red o de fetch:', error);
             }
