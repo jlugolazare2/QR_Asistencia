@@ -219,23 +219,18 @@
             });
         }
 
-        async function sendToBackend(data) {
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'cors',
-                    body: JSON.stringify(data)
-                });
-        
-                const result = await response.json();
-                console.log('Respuesta del servidor:', result);
-        
-            } catch (error) {
-                console.error('Error de red o de fetch:', error);
-            }
+       function sendToBackend(data) {
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Respuesta del servidor:', data))
+            .catch(err => console.error('Error al enviar la petición:', err));
         }
 
         
