@@ -69,20 +69,40 @@
                             lat: lat,
                             lng: lng,
                         };
-                        const respuesta =await sendToBackend(payload);
                         
                         
-                        // Ocultamos loaders/spinners
+                        const respuesta = await sendToBackend(payload);
+
+                        // Ocultamos loaders
                         $('#loader').hide();
                         $('#success-spinner').hide();
                         $('#error-spinner').hide();
+            
+                        if (respuesta.status==='error') {
+                            // Mostramos mensaje de "ya existe"
+                            $('#error-text').html(`⚠️ El registro <b>${punto}</b> ya existe.`);
+                            $('#error').show();
+                        } else {
+                            // Mostramos mensaje normal de éxito
+                            $('#success-text').html(`
+                                <i class="bi bi-alarm me-2"></i>${fecha}, ${hora}<br>
+                                <b>${punto}</b>: ${storedId}
+                            `);
+                            $('#success').show();
+                        }
+
+                        //const respuesta =await sendToBackend(payload);
+                        //// Ocultamos loaders/spinners
+                        //$('#loader').hide();
+                        //$('#success-spinner').hide();
+                        //$('#error-spinner').hide();
         
-                        // Mostramos mensaje de éxito
-                        $('#success-text').html(`
-                            <i class="bi bi-alarm me-2"></i>${fecha}, ${hora}<br>
-                            <b>${punto}</b>: ${storedId}
-                        `);
-                        $('#success').show();
+                        //// Mostramos mensaje de éxito
+                        //$('#success-text').html(`
+                        //    <i class="bi bi-alarm me-2"></i>${fecha}, ${hora}<br>
+                        //    <b>${punto}</b>: ${storedId}
+                        //`);
+                        //$('#success').show();
         
                     }, (err) => {
                         $('#loader').hide();
@@ -104,75 +124,7 @@
         });
 
         
-        //document.addEventListener('DOMContentLoaded', async () => {
-        //    const params = new URLSearchParams(window.location.search);
-        //    const action = params.get('action');
-        //    const id = params.get('userid');
-        //    const punto = params.get('control');
-        //
-        //    if (action === 'register') {
-        //        await saveToIndexedDB(id);
-        //        $('#loader').hide();
-        //        $('#success-spinner').hide();
-        //        $('#success-text').html(`✅ ID <strong>${id}</strong> registrado exitosamente en este dispositivo.`);
-        //        $('#success').show();
-        //        $('#btn-close-success').show();
-        //    }
-        //
-        //    if (action === 'checkin') {
-        //        const storedId = await getFromIndexedDB();
-        //        if (!storedId) {
-        //            $('#loader').hide();
-        //            $('#error-spinner').hide();
-        //            $('#error-text').html(`<i class="bi bi-exclamation-circle-fill"></i> Debes registrarte para fichar.`);
-        //            $('#error').show();
-        //            $('#btn-close-error').show();
-        //            return;
-        //        }
-        //
-        //        if (navigator.geolocation) {
-        //            navigator.geolocation.getCurrentPosition(async (position) => {
-        //                const lat = position.coords.latitude;
-        //                const lng = position.coords.longitude;
-        //                const fechaObj = new Date();
-        //                const fecha = fechaObj.toLocaleDateString();
-        //                const hora = fechaObj.toLocaleTimeString();
-        //
-        //                const payload = {
-        //                    id: storedId,
-        //                    punto: punto,
-        //                    action: 'checkin',
-        //                    lat: lat,
-        //                    lng: lng,
-        //                };
-        //                await sendToBackend(payload);
-        //
-        //                $('#loader').hide();
-        //                $('#success-spinner').hide();
-        //                $('#success-text').html(`
-        //                    <i class="bi bi-alarm me-2"></i>${fecha}, ${hora}<br>
-        //                    <b>${punto}</b>: ${storedId}
-        //                `);
-        //                $('#success').show();
-        //                $('#btn-close-success').show();
-        //                
-        //            }, (err) => {
-        //                $('#loader').hide();
-        //                $('#error-spinner').hide();
-        //                $('#error-text').html(`⚠️ Error al obtener la ubicación: ${err.message}`);
-        //                $('#error').show();
-        //                $('#btn-close-error').show();
-        //            });
-        //        } else {
-        //            $('#loader').hide();
-        //            $('#error-spinner').hide();
-        //            $('#error-text').html('⚠️ Geolocalización no soportada en este navegador.');
-        //            $('#error').show();
-        //            $('#btn-close-error').show();
-        //        }
-        //    }
-        //});
-
+       
         // Mostrar mensajes en la página
         function showMessage(msg) {
             document.getElementById('message').innerHTML = msg;
@@ -201,13 +153,7 @@
             });
         }
 
-        //async function saveToIndexedDB(id) {
-        //    const db = await openDB();
-        //    const tx = db.transaction('empleados', 'readwrite');
-        //    tx.objectStore('empleados').put({ key: 'empleadoID', value: id });
-        //    await tx.complete;
-        //}
-
+        
         async function getFromIndexedDB() {
             const db = await openDB();
             return new Promise((resolve) => {
@@ -219,58 +165,44 @@
             });
         }
 
-       function sendToBackend(data) {
-          const params = new URLSearchParams({
-            id: data.id,
-            punto: data.punto,
-            action: data.action,
-            lat: data.lat,
-            lng: data.lng // corregido aquí
-          });
+        async function sendToBackend(data) {
+            const params = new URLSearchParams({
+                id: data.id,
+                punto: data.punto,
+                action: data.action,
+                lat: data.lat,
+                lng: data.lng
+            });
         
-           fetch(API_URL + "?" + params.toString())
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.error(err));
- 
-          //const responseData =  res.json(); // Convertimos la respuesta a JSON
-          //return responseData; // Retornamos la respuesta para que pueda ser utilizada
-
-          //try {
-          //      const res = fetch(API_URL + "?" + params.toString()); // Esperamos la respuesta de fetch
-          //      const responseData =  res.json(); // Convertimos la respuesta a JSON
-          //        
-          //      return responseData; // Retornamos la respuesta para que pueda ser utilizada
-          //  } catch (err) {
-          //      console.error('Error al enviar la solicitud:', err);
-          //      return { status: 'error', message: 'Hubo un error al enviar la solicitud' }; // En caso de error, retornamos un mensaje
-          //  }
-           
+            try {
+                const response = await fetch(API_URL + "?" + params.toString());
+                const result = await response.json();
+        
+                return result; // devolvemos la respuesta del backend
+            } catch (err) {
+                console.error(err);
+                return { success: false, error: "Error de conexión" };
+            }
         }
+        
+       //function sendToBackend(data) {
+       //   const params = new URLSearchParams({
+       //     id: data.id,
+       //     punto: data.punto,
+       //     action: data.action,
+       //     lat: data.lat,
+       //     lng: data.lng // corregido aquí
+       //   });
+       // 
+       //    fetch(API_URL + "?" + params.toString())
+       //     .then(res => res.json())
+       //     .then(data => console.log(data))
+       //     .catch(err => console.error(err));
+       //     
+       // }
 
         
-       //async function sendToBackend(data) {
-       //     try {
-       //         const response = fetch(API_URL, {  //await fetch(API_URL, {
-       //             method: 'POST',
-       //             headers: {
-        //                'Content-Type': 'application/json'
-        //            },
-        //            mode: 'cors', // <-- si el backend lo permite
-        //            body: JSON.stringify(data)
-        //        })
-        //
-        //        .then(response => response.json())
-        //        .then(data => console.log('Respuesta del servidor:', data))
-        //        .catch(err => console.error('Error al enviar la petición:', err));
-        //        
-        //        
-        //    } catch (error) {
-        //        console.error('Error de red o de fetch:', error);
-        //    }
-        //}
-
-
+       
 
     </script>
 </head>
