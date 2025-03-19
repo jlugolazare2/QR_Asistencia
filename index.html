@@ -18,6 +18,13 @@
     <script>
         const API_URL = 'https://script.google.com/a/~/macros/s/AKfycbyUTBZ5Q76YYB5rk-TjJwPXh_JGRhJvNUGOKKoZzWqTqrm4w5Nd0RYdeq51OzJgzeBArw/exec'; // tu Apps Script Web App URL
 
+        // Detectar cuando la pestaña vuelve a primer plano
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                location.reload(true); // Forzar recarga cuando vuelves desde segundo plano
+            }
+        });
+        
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const action = params.get('action');
