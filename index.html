@@ -165,7 +165,7 @@
             });
         }
 
-        async function sendToBackend(data) {
+        function sendToBackend(data) {
             const params = new URLSearchParams({
                 id: data.id,
                 punto: data.punto,
@@ -174,17 +174,36 @@
                 lng: data.lng
             });
         
-            try {
-                const response = await fetch(API_URL + "?" + params.toString());
-                const result = await response.json();
-        
-                return result; // devolvemos la respuesta del backend
-               
-            } catch (err) {
-                console.error(err);
-                return { success: false, error: "Error de conexión" };
-            }
+            return fetch(API_URL + "?" + params.toString())
+                .then(res => res.json()) // devolvemos esta promesa directamente
+                .catch(err => {
+                    console.error(err);
+                    return { success: false, error: "Error de conexión" }; // devolvemos un objeto de error también
+                });
         }
+
+        
+        //Ultima modificacion funciono
+        //async function sendToBackend(data) {
+        //    const params = new URLSearchParams({
+        //        id: data.id,
+        //        punto: data.punto,
+        //        action: data.action,
+        //        lat: data.lat,
+        //        lng: data.lng
+        //    });
+        //
+        //    try {
+        //        const response = await fetch(API_URL + "?" + params.toString());
+        //        const result = await response.json();
+        //
+        //        return result; // devolvemos la respuesta del backend
+        //       
+        //    } catch (err) {
+        //        console.error(err);
+        //        return { success: false, error: "Error de conexión" };
+        //    }
+        //}
         
        //function sendToBackend(data) {
        //   const params = new URLSearchParams({
