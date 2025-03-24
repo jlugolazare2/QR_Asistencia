@@ -183,7 +183,9 @@
                 lng: data.lng
             });
         
-            return fetch(API_URL + "?" + params.toString())
+            return fetch(API_URL + "?" + params.toString(){ 
+                mode: 'no-cors' // indicamos que sea no-cors
+                })
                 .then(res => res.json()) // devolvemos esta promesa directamente
                 .catch(err => {
                     console.error(err);
