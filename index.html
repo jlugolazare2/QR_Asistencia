@@ -31,7 +31,8 @@
         
             if (action === 'register') {
                 
-                await saveToIndexedDB(id);
+                //await saveToIndexedDB(id);
+                saveToIndexedDB(id);
         
                 // Ocultamos todos los spinners
                 $('#loader').hide();
