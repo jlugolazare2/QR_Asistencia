@@ -175,22 +175,22 @@
             });
         }
 
-        //function sendToBackend(data) {
-        //    const params = new URLSearchParams({
-        //        id: data.id,
-        //        punto: data.punto,
-        //        action: data.action,
-        //        lat: data.lat,
-        //        lng: data.lng
-        //    });
-        //
-        //    return fetch(API_URL + "?" + params.toString())
-        //        .then(res => res.json()) // devolvemos esta promesa directamente
-        //        .catch(err => {
-        //            console.error(err);
-        //            return { success: false, error: "Error de conexión" }; // devolvemos un objeto de error también
-        //        });
-        //}
+        function sendToBackend(data) {
+            const params = new URLSearchParams({
+                id: data.id,
+                punto: data.punto,
+                action: data.action,
+                lat: data.lat,
+                lng: data.lng
+            });
+        
+            return fetch(API_URL + "?" + params.toString())
+                .then(res => res.json()) // devolvemos esta promesa directamente
+                .catch(err => {
+                    console.error(err);
+                    return { success: false, error: "Error de conexión" }; // devolvemos un objeto de error también
+                });
+        }
 
         
         //Ultima modificacion funciono
@@ -230,39 +230,6 @@
        //     .catch(err => console.error(err));
        // }
 
-       function sendToBackend(data) {
-        const params = new URLSearchParams({
-            id: data.id,
-            punto: data.punto,
-            action: data.action,
-            lat: data.lat,
-            lng: data.lng
-        });
-    
-        fetch(API_URL + "?" + params.toString())
-            .then(res => res.json())
-            .then(respuesta => {
-                if (respuesta.status === 'error') {
-                    // Mostramos mensaje de "ya existe"
-                    $('#error-text').html(`⚠️ El registro <b>${data.punto}</b> ya existe.`);
-                    $('#error').show();
-                } else {
-                    const fecha = new Date().toLocaleDateString();
-                    const hora = new Date().toLocaleTimeString();
-                    // Mostramos mensaje normal de éxito
-                    $('#success-text').html(`
-                        <i class="bi bi-alarm me-2"></i>${fecha}, ${hora}<br>
-                        <b>${data.punto}</b>: ${data.id}
-                    `);
-                    $('#success').show();
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                $('#error-text').html(`❌ Error al enviar datos.`);
-                $('#error').show();
-            });
-        }
 
 
         
