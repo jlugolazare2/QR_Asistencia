@@ -174,22 +174,22 @@
             });
         }
 
-        function sendToBackend(data) {
-            const params = new URLSearchParams({
-                id: data.id,
-                punto: data.punto,
-                action: data.action,
-                lat: data.lat,
-                lng: data.lng
-            });
-        
-            return fetch(API_URL + "?" + params.toString())
-                .then(res => res.json()) // devolvemos esta promesa directamente
-                .catch(err => {
-                    console.error(err);
-                    return { success: false, error: "Error de conexión" }; // devolvemos un objeto de error también
-                });
-        }
+        //function sendToBackend(data) {
+        //    const params = new URLSearchParams({
+        //        id: data.id,
+        //        punto: data.punto,
+        //        action: data.action,
+        //        lat: data.lat,
+        //        lng: data.lng
+        //    });
+        //
+        //    return fetch(API_URL + "?" + params.toString())
+        //        .then(res => res.json()) // devolvemos esta promesa directamente
+        //        .catch(err => {
+        //            console.error(err);
+        //            return { success: false, error: "Error de conexión" }; // devolvemos un objeto de error también
+        //        });
+        //}
 
         
         //Ultima modificacion funciono
@@ -213,22 +213,22 @@
         //        return { success: false, error: "Error de conexión" };
         //    }
         //}
+       
+       function sendToBackend(data) {
+          const params = new URLSearchParams({
+            id: data.id,
+            punto: data.punto,
+            action: data.action,
+            lat: data.lat,
+            lng: data.lng // corregido aquí
+          });
         
-       //function sendToBackend(data) {
-       //   const params = new URLSearchParams({
-       //     id: data.id,
-       //     punto: data.punto,
-       //     action: data.action,
-       //     lat: data.lat,
-       //     lng: data.lng // corregido aquí
-       //   });
-       // 
-       //    fetch(API_URL + "?" + params.toString())
-       //     .then(res => res.json())
-       //     .then(data => console.log(data))
-       //     .catch(err => console.error(err));
-       //
-       // }
+           fetch(API_URL + "?" + params.toString())
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+       
+        }
 
         
        
