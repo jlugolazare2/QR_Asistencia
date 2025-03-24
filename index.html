@@ -11,7 +11,7 @@
     <title>Control de Acceso QR</title>
     
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzNhaVZo2YtQyAg9KiMzXOGd4nO-1hjDd39pubkNQttdUrVf7ypp71MGgGr5Cg1SpsO8w/exec'; // tu Apps Script Web App URL jlugolazare@gmail.com
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxk5_VJ6S8UNO_IAdpf61gUw9sN-Klz3wC1geornxD0G4J1CI5TLrooSyC-wC7xg8A3/exec'; // tu Apps Script Web App URL jlugolazare@gmail.com
         //https://script.google.com/a/~/macros/s/AKfycbwePj9qgflhtj8FkEhd2j28Tr1p8Q-oqvgnJkHsKVL6eCTK4vjdpyShbFuo5LPO0e8o/exec    jlugolazare@gmail.com
         
         // Detectar cuando la pestaña vuelve a primer plano y la recargue siempre la pagina
@@ -90,7 +90,7 @@
             
                         if (respuesta.status==='error') {
                             // Mostramos mensaje de "ya existe"
-                            $('#error-text').html(`⚠️ El registro <b>${punto}</b> ya existe.`);
+                            $('#error-text').html(`⚠️ ${respuesta.message}`);
                             $('#error').show();
                         } else {
                             // Mostramos mensaje normal de éxito
